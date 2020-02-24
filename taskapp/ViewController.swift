@@ -13,6 +13,33 @@ import UserNotifications//追加
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
+    //各セルの内容を返すメソッド
+      func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+          //再利用可能なcellを得る
+          let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+          
+          // Cellに値を設定する
+          let task = taskArray[indexPath.row]
+          
+          let resultTask = searchArray[indexPath.row]
+          
+          let formatter = DateFormatter()
+          formatter.dateFormat = "yyyy-MM-dd HH:mm"
+          
+          let dateString:String = formatter.string(from: task.date)
+          let resultDateString: String = formatter.string(from: resultTask.date)
+
+          if searchBar.text == ""{
+              cell.textLabel?.text = task.title
+              cell.detailTextLabel?.text = dateString
+          }else{
+              cell.textLabel?.text = resultTask.title
+              cell.detailTextLabel?.text = resultDateString
+          }
+          return cell
+      }
+
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     
@@ -22,9 +49,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     // DB内のタスクが格納されるリスト。
     //　日付の近い順でソート：昇順
     //　以降、内容をアップデートするとリスト内は自動的に更新される
-    
     var taskArray = try! Realm() .objects(Task.self).sorted(byKeyPath: "date", ascending: false)
-    
+ 
+    //検索結果変数を格納する変数
     var searchArray = try! Realm() .objects(Task.self).sorted(byKeyPath: "date", ascending: false)
     
     
@@ -49,6 +76,31 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let inputViewController:InputViewController = segue.destination as! InputViewController
+        
+        if segue.identifier == "cellSegue" {
+            
+            let indexPath = self.tableView.indexPathForSelectedRow
+            inputViewController.task = taskArray[indexPath!.row]
+            inputViewController.task = searchArray[indexPath!.row]
+            
+        }else{
+            let task = Task()
+            task.date = Date()
+            
+            let allTasks = realm.objects(Task.self)
+            if allTasks.count != 0 {
+                task.id = allTasks.max(ofProperty: "id")! + 1
+            }
+            inputViewController.task = task
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+    }
     //データの数（＝セルの数）を返すメソッド
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if searchBar.text == ""{
@@ -56,32 +108,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }else{
             return searchArray.count
         }
-    
-    //各セルの内容を返すメソッド
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //再利用可能なcellを得る
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        
-        // Cellに値を設定する
-        let task = taskArray[indexPath.row]
-        
-        let resultTask = searchArray[indexPath.row]
-        
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm"
-        
-        let dateString:String = formatter.string(from: task.date)
-        let resultDateString: String = formatter.string(from: resultTask.date)
 
-        if searchBar.text == ""{
-            cell.textLabel?.text = task.title
-            cell.detailTextLabel?.text = dateString
-        }else{
-            cell.textLabel?.text = resultTask.title
-            cell.detailTextLabel?.text = resultDateString
-        }
-        return cell
-    }
     
     //各セルを選択した時に実行されるメソッド
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -119,33 +146,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // --- ここまで追加 ---
     }
    
-    
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let inputViewController:InputViewController = segue.destination as! InputViewController
-        
-        if segue.identifier == "cellSegue" {
-            
-            let indexPath = self.tableView.indexPathForSelectedRow
-            inputViewController.task = taskArray[indexPath!.row]
-            inputViewController.task = searchArray[indexPath!.row]
-            
-        }else{
-            let task = Task()
-            task.date = Date()
-            
-            let allTasks = realm.objects(Task.self)
-            if allTasks.count != 0 {
-                task.id = allTasks.max(ofProperty: "id")! + 1
-            }
-            inputViewController.task = task
-        }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        tableView.reloadData()
-    }
    
         func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
             self.view.endEditing(true)
@@ -174,7 +174,4 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 }
 
 
-
-
-
-
+}

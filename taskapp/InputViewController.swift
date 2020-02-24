@@ -16,6 +16,8 @@ class InputViewController: UIViewController {
     @IBOutlet weak var contentsTextView: UITextView!
     @IBOutlet weak var datePicker: UIDatePicker!
     
+    @IBOutlet weak var categoryTextField: UITextField!
+    
     let realm = try! Realm()  //追加する
     var task: Task!
     
@@ -26,10 +28,21 @@ class InputViewController: UIViewController {
         let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         self.view.addGestureRecognizer(tapGesture)
         
-        titleTextField.text! = task.title
+        titleTextField.text = task.title
         contentsTextView.text = task.contents
         datePicker.date = task.date
+        categoryTextField.text = task.category
+        
         // Do any additional setup after loading the view.
+    }
+    
+    @objc func dismissKeyboard(){
+        //キーボードを閉じる
+        view.endEditing(true)
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -37,15 +50,17 @@ class InputViewController: UIViewController {
             self.task.title = self.titleTextField.text!
             self.task.contents = self.contentsTextView.text
             self.task.date = self.datePicker.date
-            self.realm.add(self.task, update: .modified)
+            self.realm.add(self.task, update: true)
+            self.task.category = self.categoryTextField.text!
+
         }
         
-        setNotification(task: task) //追加
+        setNotification(task: task)
         
         super.viewWillDisappear(animated)
     }
 
-//タスクのローカル通知を登録するーーー　ここから　ーーー
+//タスクのローカル通知を登録する
     func setNotification(task: Task) {
         let content = UNMutableNotificationContent()
         
@@ -64,10 +79,10 @@ class InputViewController: UIViewController {
         //ローカル通知が発動するtrigger（日付マッチ）を作成
         let calendar = Calendar.current
         let dateComponents = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: task.date)
-        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
         
         //identifier, content, triggerからローカル通知を作成（identifierが同じだとローカル通知を上書き保存）
-        let request = UNNotificationRequest(identifier: String(task.id), content: content, trigger: trigger)
+        let request = UNNotificationRequest.init(identifier: String(task.id), content: content, trigger: trigger)
         
         //ローカル通知を登録
         let center = UNUserNotificationCenter.current()
@@ -86,13 +101,9 @@ class InputViewController: UIViewController {
             print("---------------/")
         }
     }
-}
-//--- ここまで追加 ---
+}    
+
     
-    @objc func dismissKeyboard(){
-        //キーボードを閉じる
-        view.endEditing(true)
-    }
     /*
     // MARK: - Navigation
 
