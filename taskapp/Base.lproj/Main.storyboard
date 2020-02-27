@@ -15,13 +15,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K5Z-VP-Ebf">
-                                <rect key="frame" x="0.0" y="89" width="414" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <searchBar contentMode="redraw" text="" translatesAutoresizingMaskIntoConstraints="NO" id="K5Z-VP-Ebf">
+                                <rect key="frame" x="0.0" y="88" width="414" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9Nz-xI-WXy">
-                                <rect key="frame" x="0.0" y="133" width="414" height="729"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9Nz-xI-WXy">
+                                <rect key="frame" x="0.0" y="144" width="414" height="718"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" textLabel="7oF-nj-cJg" detailTextLabel="kBG-jG-lyN" style="IBUITableViewCellStyleSubtitle" id="WzS-en-HHB">
@@ -53,10 +52,13 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="9Nz-xI-WXy" secondAttribute="trailing" id="BJN-Ky-jm5"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="9Nz-xI-WXy" secondAttribute="bottom" id="WDK-Tl-97w"/>
-                            <constraint firstItem="9Nz-xI-WXy" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="ufO-gp-hWS"/>
-                            <constraint firstItem="9Nz-xI-WXy" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="wUl-T9-TXj"/>
+                            <constraint firstItem="9Nz-xI-WXy" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="2um-am-MVv"/>
+                            <constraint firstItem="K5Z-VP-Ebf" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="4u5-uf-WAu"/>
+                            <constraint firstItem="9Nz-xI-WXy" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="BcI-7J-rA7"/>
+                            <constraint firstItem="9Nz-xI-WXy" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="YoZ-5H-uv0"/>
+                            <constraint firstItem="K5Z-VP-Ebf" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="fKP-Rh-che"/>
+                            <constraint firstItem="9Nz-xI-WXy" firstAttribute="top" secondItem="K5Z-VP-Ebf" secondAttribute="bottom" symbolic="YES" id="gWy-13-VPY"/>
+                            <constraint firstItem="K5Z-VP-Ebf" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="snj-Gf-oon"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
