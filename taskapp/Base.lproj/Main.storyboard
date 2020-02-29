@@ -115,12 +115,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <datePicker contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="qRe-Lq-nhE">
-                                <rect key="frame" x="-20" y="334" width="414" height="120"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="120" id="yB3-uF-7Ar"/>
-                                </constraints>
-                            </datePicker>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yxA-eI-WJa">
                                 <rect key="frame" x="10" y="504" width="394" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -134,6 +128,10 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="qRe-Lq-nhE">
+                                <rect key="frame" x="0.0" y="341" width="414" height="120"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </datePicker>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -147,7 +145,6 @@
                             <constraint firstItem="xgo-AH-ZNm" firstAttribute="leading" secondItem="BH2-xu-BMn" secondAttribute="leading" constant="10" id="QJs-th-2H1"/>
                             <constraint firstItem="Xhf-f4-lro" firstAttribute="top" secondItem="PRJ-CK-atv" secondAttribute="bottom" constant="10" id="Rhw-v0-sOA"/>
                             <constraint firstItem="BH2-xu-BMn" firstAttribute="trailing" secondItem="SZq-xa-0eT" secondAttribute="trailing" constant="10" id="k1o-hJ-gI7"/>
-                            <constraint firstItem="qRe-Lq-nhE" firstAttribute="top" secondItem="SZq-xa-0eT" secondAttribute="bottom" constant="10" id="lVr-jK-TAj"/>
                             <constraint firstItem="BH2-xu-BMn" firstAttribute="trailing" secondItem="PRJ-CK-atv" secondAttribute="trailing" constant="10" id="oW0-QR-H2o"/>
                             <constraint firstItem="SZq-xa-0eT" firstAttribute="top" secondItem="xgo-AH-ZNm" secondAttribute="bottom" constant="10" id="r9V-N1-urV"/>
                         </constraints>
